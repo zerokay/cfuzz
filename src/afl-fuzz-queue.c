@@ -704,7 +704,7 @@ void update_bitmap_score(afl_state_t *afl, struct queue_entry *q) {
   if (unlikely(afl->schedule >= FAST && afl->schedule < RARE))
     fuzz_p2 = 0;  // Skip the fuzz_p2 comparison
   else if (unlikely(afl->schedule == RARE))
-    fuzz_p2 = next_pow2(afl->n_fuzz[q->n_fuzz_entry]);
+    fuzz_p2 = 3 * next_pow2(afl->n_fuzz[q->n_fuzz_entry]);
   else
     fuzz_p2 = q->fuzz_level;
 
@@ -1089,7 +1089,7 @@ u32 calculate_score(afl_state_t *afl, struct queue_entry *q) {
 
       }
 
-      if (q->favored) factor *= 1.15;
+      if (q->favored) factor *= 1.25;
 
       break;
 
